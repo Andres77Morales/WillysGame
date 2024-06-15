@@ -1,5 +1,7 @@
 #include <iostream>
 using namespace std;
+
+
 void menu_();
 int main()
 {
@@ -7,28 +9,17 @@ int main()
 }
 
 void menu_(){
+    int opcion;
     cout <<"----------------------------------------------";
     cout <<"        BIENVENIDO AL WILLY GAME'S            ";
     cout <<"----------------------------------------------";
     cout <<" tiene cuenta o es nuevo por aca";
     cout <<" (1) para abrir una nueva cuenta";
     cout <<" (2) si tiene cuenta existente";
+    
 }
-// con con para agragar
-void menu_1_agregarPersonas()
-{
-    cout<<" nombre :";
-    cout<<"apellido:";
-    cout<<"edad    :";
-    cout<<"carnet  :";
-    cout<<"contraseña :";
-    cout<< " proseso completado usted es en la lista";
-}
-void cuenta_existente()
-{
-    cout<<"ingrese su nombre :";
-    cout<<"ingrese su contraseña:";
-}
+
+
 void cuenta_del_propietario()
 {
     cout<<"1 reporte de ventas mes";
