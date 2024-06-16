@@ -24,7 +24,7 @@ int menu_ingreso_usuario()
     cout <<"----------------------------------------------"<<endl;
     cout <<" (1)Si es cliente nuevo                       "<<endl;
     cout <<" (2)Si es cliente antiguo                     "<<endl;
-    cout <<" (3)Para volver"<<endl;
+    cout <<" (0)Para volver"<<endl;
     cout <<"----------------------------------------------"<<endl;
     cout <<"Opcion: ";
     cin>>opcion;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "MENUS.h"
 #include <fstream>
-#include <string.h>
+#include <cstring>
 
 using namespace std;
 
@@ -64,14 +64,13 @@ void cliente_nuevo(){
     Menu_Usuario(nuevo.nombre);
 }
 
-bool verificar_existencia(char nombre[], char contrasena[]){
+bool verificar_existencia(char nombre[50], char contrasena[20]){
     
     usuario usuarios;
     ifstream archivo;
     archivo.open(nombretexto, ios::in | ios:: binary);
     while(archivo.read((char*)&usuarios, sizeof(usuario))){
-        if (usuarios.nombre == nombre && usuarios.contrasena == contrasena)
-        {
+        if (strcmp(usuarios.nombre, nombre) == 0 && strcmp(usuarios.contrasena, contrasena) == 0){
             archivo.close();
             return true;
         }
