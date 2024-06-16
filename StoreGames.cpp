@@ -1,20 +1,18 @@
 #include <iostream>
 #include "MENUS.h"
 #include <fstream>
+#include <string.h>
 
 using namespace std;
 
-string nombretexto = "USUARIOS.bin";
+const char* nombretexto = "USUARIOS.bin";
 
-struct usuario
-{
-    char nombre[45];
+struct usuario{
+    char nombre[50];
     int edad;
-    long ci;
-    char contrasena[30];
+    int ci;
+    char contrasena[20];
 };
-
-
 
 //prototipo
 void Menu_cliente();
@@ -24,11 +22,11 @@ void cliente_existente();
 void verificar_usuario();
 bool verificar_existencia();
 
-void Menu_Usuario(char nombre[]){
+void Menu_Usuario(char nombre[50]){
     int opcion=0;
     while (true)
     {
-        cin>>opcion;
+        opcion=menu_opciones_cliente();
         if (opcion==0){
             break;
         }
@@ -50,14 +48,16 @@ void Menu_Usuario(char nombre[]){
 
 void cliente_nuevo(){
     usuario nuevo;
+    cin.ignore();
     cout<<"Nombre: ";
-    cin.getline(nuevo.nombre,45);
+    cin.getline(nuevo.nombre,50);
+    cout<<"Contrasena: ";
+    cin.getline(nuevo.contrasena,20);
     cout<<"Edad: ";
     cin>> nuevo.edad;
     cout<<"CI: ";
     cin>> nuevo.ci;
-    cout<<"Contrasena: ";
-    cin.getline(nuevo.contrasena,30);
+    
     ofstream archivo;
     archivo.open(nombretexto,ios::app | ios::binary);
     archivo.write((char*)&nuevo, sizeof(usuario));
@@ -82,42 +82,45 @@ bool verificar_existencia(char nombre[], char contrasena[]){
 
 
 void verificar_usuario(){
-    char nombre[45]; 
-    char contrasena[30];
+    char nombre[50]; 
+    char contrasena[20];
+    int opcion=0;
     while(true){
-        cin.getline(nombre, 45);
-        cin.getline(contrasena, 30);
+        cin.ignore();
+        cout<<"NOmbre de usuario: ";
+        cin.getline(nombre,50);
+        cout<<"Contrasena: ";
+        cin.getline(contrasena,20);
         if(verificar_existencia(nombre, contrasena)){
             Menu_Usuario(nombre);
         }else{
             Mostrar("El usuario o contrasena es incorrecto.");
+            cout<<"Desea continuar?\n1) si\n2) no\nOpcion: ";
+            cin>>opcion;
+            if (opcion==2){
+                break;
+            }
         }
     }
 }
 
 
 void Menu_cliente(){
-    int opciones;
-    while(true)
-    {
-        cin>>opciones;
-        switch (opciones)
-        {
-            if (opciones==0){
-                break;
-            }
-            
+    int opciones=0;
+    while(true){
+        opciones=menu_ingreso_usuario();
+        if (opciones==0){
+            break;
+        }
+        switch (opciones){
             case 1:
                 cliente_nuevo();
                 break;
-            
             case 2:
                 verificar_usuario();
                 break;
-            
-
             default:
-                cout<<"Salida"<<endl;
+                cout<<"Opcion invalida"<<endl;
                 break;
         }
     } 
@@ -137,7 +140,6 @@ int main(){
             Menu_cliente();
             break;
         case 2:
-            Menu_administrador();
             break;
         
         default:

@@ -18,8 +18,34 @@ void menu_(){
     cout <<" (2) si tiene cuenta existente";
     
 }
-
-
+int menu_opciones_cliente()
+{   
+    int opcion=0;
+    cout <<"----------------------------------------------"<<endl;
+    cout <<"        BIENVENIDO AL WILLY GAME'S            "<<endl;
+    cout <<"----------------------------------------------"<<endl;
+    cout <<"(1)Consolas y mandos  "<<endl;
+    cout <<"(2)Juegos "<<endl;
+    cout <<"(3)Historial de compras"<<endl;
+    cout <<"----------------------------------------------"<<endl;
+    cin>>opcion;
+    return opcion;
+}
+void menu_cliente()
+{
+    cout <<"----------------------------------------------";
+    cout <<"        BIENVENIDO AL WILLY GAME'S            ";
+    cout <<"----------------------------------------------";
+    cout <<" (1)Si es cliente nuevo                       ";
+    cout <<" (2)Si es cliente antiguo                     ";
+    cout <<" (3)Para volver"                              ;
+    cout <<"----------------------------------------------";
+}
+void cuenta_existente()
+{
+    cout<<"ingrese su nombre :";
+    cout<<"ingrese su contraseña:";
+}
 void cuenta_del_propietario()
 {
     cout<<"1 reporte de ventas mes";
