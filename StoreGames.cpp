@@ -7,7 +7,7 @@ using namespace std;
 
 const char* nombretexto = "USUARIOS.bin";
 //jamie secso
-// que onda 
+// que onda jysvejkfghsef
 struct usuario{
     char nombre[50];
     int edad;
