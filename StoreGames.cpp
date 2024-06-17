@@ -6,7 +6,7 @@
 using namespace std;
 
 const char* nombretexto = "USUARIOS.bin";
-
+//jamie secso
 struct usuario{
     char nombre[50];
     int edad;
@@ -84,19 +84,24 @@ void verificar_usuario(){
     char nombre[50]; 
     char contrasena[20];
     int opcion=0;
-    while(true){
+    while(true)
+    {
         cin.ignore();
         cout<<"NOmbre de usuario: ";
         cin.getline(nombre,50);
         cout<<"Contrasena: ";
         cin.getline(contrasena,20);
-        if(verificar_existencia(nombre, contrasena)){
+        if(verificar_existencia(nombre, contrasena))
+        {
             Menu_Usuario(nombre);
-        }else{
+        }
+        else
+        {
             Mostrar("El usuario o contrasena es incorrecto.");
             cout<<"Desea continuar?\n1) si\n2) no\nOpcion: ";
             cin>>opcion;
-            if (opcion==2){
+            if (opcion==2)
+            {
                 break;
             }
         }
