@@ -18,14 +18,14 @@ struct usuario{
 };
 
 struct Juegos{
-    char nombre[20];
+    char nombre[60];
     float precio;
     char tipo[20];
     int stock;
 };
 
 struct MandosConsola{
-    char nombre[20];
+    char nombre[60];
     float precio;
     char tipo[20];
     int stock;
