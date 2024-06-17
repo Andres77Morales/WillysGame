@@ -18,14 +18,14 @@ struct usuario{
 };
 
 struct Juegos{
-    char nombre[60];
+    char nombre[100];
     float precio;
     char tipo[20];
     int stock;
 };
 
 struct MandosConsola{
-    char nombre[60];
+    char nombre[100];
     float precio;
     char tipo[20];
     int stock;
@@ -69,7 +69,7 @@ void Adicionar_producto(){
         archivoSelecionado=JUEGOS;
         Juegos juego;
         cout<<"Nombre: ";
-        cin.getline(juego.nombre,20);
+        cin.getline(juego.nombre,100);
         cout<<"TIpo: ";
         cin.getline(juego.tipo,20);
         cout<<"Precio: ";
@@ -85,7 +85,7 @@ void Adicionar_producto(){
         archivoSelecionado=JUEGOS;
         MandosConsola juego;
         cout<<"Nombre: ";
-        cin.getline(juego.nombre,20);
+        cin.getline(juego.nombre,100);
         cout<<"TIpo: ";
         cin.getline(juego.tipo,20);
         cout<<"Precio: ";
