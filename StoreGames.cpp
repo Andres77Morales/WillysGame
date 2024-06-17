@@ -92,7 +92,7 @@ void verificar_usuario(){
         }else{
             Mostrar("El usuario o contrasena es incorrecto.");
             Mostrar("Desea continuar?\n1) si\n2) no\nOpcion: ");
-            cin>>
+            
         }
     }
 }
