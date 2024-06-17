@@ -6,6 +6,7 @@
 using namespace std;
 
 const char* nombretexto = "USUARIOS.bin";
+const char* ALMACEN = "ALAMCEN.bin";
 //jamie secso
 // que onda jysvejkfghsef
 struct usuario{
