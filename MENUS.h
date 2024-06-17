@@ -46,6 +46,21 @@ int menu_opciones_cliente()
     return opcion;
 }
 
+int cuenta_del_administrador()
+{
+    int opcion=0;
+    // cout<<"1 reporte de ventas mes";
+    // cout<<"2 reporte de ventas año";
+    // cout<<"3 reporte de cuentas ";
+    // cout<<"4 facturacion de personas ";
+    cout<<"5 Reporte de inventario"<<endl;
+    cout<<"6 Adicionar producto"<<endl;
+    cout <<"----------------------------------------------"<<endl;
+    cout<<"Opcion: ";
+    cin>>opcion;
+    return opcion;
+}
+
 
 void Mostrar(string mensaje){
     cout<<mensaje<<endl;

@@ -38,17 +38,17 @@ int main(){
 void catalogo_juegos()
 {
     cout<<"-------------------------------------- ";
-    cout<<"   LA CATAEGORIA DE LOS VIDEOJUEGOS    ";
+    cout<<"             VIDEOJUEGOS               ";
     cout<<"---------------------------------------";
     cout<<"(1)--[Accion]  ";
-    cout<<"(2)--[Aventura]";
-    cout<<"(3)--[Deporte] ";
-    cout<<"(4)--[Role- Playing games(RPG)]";
-    cout<<"(5)--[Shooter]";
-    cout<<"(6)--[Simulacion]";
-    cout<<"(7)--[Estrategia]";
-    cout<<"(8)--[Casual]";
-    cout<<"(9)--[Multijugador en linea(MMO)]";
+    // cout<<"(2)--[Aventura]";
+    // cout<<"(3)--[Deporte] ";
+    // cout<<"(4)--[Role- Playing games(RPG)]";
+    // cout<<"(5)--[Shooter]";
+    // cout<<"(6)--[Simulacion]";
+    // cout<<"(7)--[Estrategia]";
+    // cout<<"(8)--[Casual]";
+    // cout<<"(9)--[Multijugador en linea(MMO)]";
     cout<<"---------------------------------------";
 }
 void juegos_accion()

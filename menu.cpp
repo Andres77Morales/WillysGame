@@ -33,11 +33,11 @@ int menu_opciones_cliente()
 }
 void menu_cliente()
 {
-    cout <<"----------------------------------------------";
-    cout <<"        BIENVENIDO AL WILLY GAME'S            ";
-    cout <<"----------------------------------------------";
-    cout <<" (1)Si es cliente nuevo                       ";
-    cout <<" (2)Si es cliente antiguo                     ";
+    cout <<"----------------------------------------------"<<endl;
+    cout <<"        BIENVENIDO AL WILLY GAME'S            "<<endl;
+    cout <<"----------------------------------------------"<<endl;
+    cout <<" (1)Si es cliente nuevo                       "<<endl;
+    cout <<" (2)Si es cliente antiguo                     "<<endl;
     cout <<" (3)Para volver"                              ;
     cout <<"----------------------------------------------";
 }
@@ -46,14 +46,21 @@ void cuenta_existente()
     cout<<"ingrese su nombre :";
     cout<<"ingrese su contraseña:";
 }
-void cuenta_del_propietario()
+
+
+
+void cuenta_del_administrador()
 {
-    cout<<"1 reporte de ventas mes";
-    cout<<"2 reporte de ventas año";
-    cout<<"3 reporte de cuentas ";
-    cout<<"4 facturacion de personas ";
+    int opcion=0;
+    // cout<<"1 reporte de ventas mes";
+    // cout<<"2 reporte de ventas año";
+    // cout<<"3 reporte de cuentas ";
+    // cout<<"4 facturacion de personas ";
     cout<<"5 inventario de juegos";
     cout<<"6 inventarios de consolas y mandos";
+    cout <<"----------------------------------------------";
+    cout<<"Opcion: ";
+    cin>>opcion;
 }
 void menu_de_consolas()
 {
