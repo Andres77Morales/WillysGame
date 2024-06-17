@@ -10,7 +10,7 @@ struct usuario
 {
     char nombre[45];
     int edad;
-    long ci;
+    int ci;
     char contrasena[30];
 };
 
@@ -18,7 +18,6 @@ struct usuario
 
 //prototipo
 void Menu_cliente();
-void Menu_administrador();
 void cliente_nuevo();
 void cliente_existente();
 void verificar_usuario();
@@ -84,6 +83,7 @@ bool verificar_existencia(char nombre[], char contrasena[]){
 void verificar_usuario(){
     char nombre[45]; 
     char contrasena[30];
+    int opcion=0;
     while(true){
         cin.getline(nombre, 45);
         cin.getline(contrasena, 30);
@@ -91,6 +91,8 @@ void verificar_usuario(){
             Menu_Usuario(nombre);
         }else{
             Mostrar("El usuario o contrasena es incorrecto.");
+            Mostrar("Desea continuar?\n1) si\n2) no\nOpcion: ");
+            cin>>
         }
     }
 }
@@ -137,7 +139,6 @@ int main(){
             Menu_cliente();
             break;
         case 2:
-            Menu_administrador();
             break;
         
         default:
