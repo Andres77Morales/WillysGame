@@ -63,6 +63,7 @@ string menu_administrador() { ///
     salida+=" (1) Reporte de inventario\n";
     salida+=" (2) Adicionar producto a inventario\n";
     salida+=" (3) Aumentar producto\n";
+    salida+=" (4) Reporte de ventas del mes\n";
     salida+=" (0) Volver\n";
     salida+="----------------------------------------------\n";
     salida+="Opcion: ";
@@ -112,4 +113,41 @@ int cuenta_administrador(){
     cout<<"Opcion: ";
     cin>>opcion;
     return opcion;
+}
+
+string meses(string mensaje){
+    string salida="";
+    salida+=mensaje;
+    salida+="\n1) Enero\n";
+    salida+="2) Febrero\n";
+    salida+="3) Marzo\n";
+    salida+="4) Abril\n";
+    salida+="5) Mayo\n";
+    salida+="6) Junio\n";
+    salida+="7) Julio\n";
+    salida+="8) Agosto\n";
+    salida+="9) Septiembre\n";
+    salida+="10) Octubre\n";
+    salida+="11) Noviembre\n";
+    salida+="12) Diciembre\n";
+    salida+="Mes: ";
+    return salida;
+}
+
+string obtener_mes(int n) {
+    switch (n) {
+        case 1: return "Enero";
+        case 2: return "Febrero";
+        case 3: return "Marzo";
+        case 4: return "Abril";
+        case 5: return "Mayo";
+        case 6: return "Junio";
+        case 7: return "Julio";
+        case 8: return "Agosto";
+        case 9: return "Septiembre";
+        case 10: return "Octubre";
+        case 11: return "Noviembre";
+        case 12: return "Diciembre";
+        default: return "Número inválido";
+    }
 }

@@ -24,6 +24,7 @@ struct Compra {
     char usuario_nombre[20];
     Producto compras[20];
     int numero_compras;
+    int mes_compra;
 };
 
 struct Usuario {
@@ -59,11 +60,12 @@ void historial_compras(char nombre[]){
     presionar_continuar();
 }
 
-void adicionar_compras(char nombre[],vector<Producto> compras){
+void adicionar_compras(char nombre[],vector<Producto> compras,int mes){
     ofstream archivo;
     Compra compra;
     strcpy(compra.usuario_nombre, nombre); 
     compra.numero_compras=compras.size();
+    compra.mes_compra=mes;
     for (int i=0;i<compras.size();i++){
         compra.compras[i].id=compras[i].id;
         strcpy(compra.compras[i].nombre,compras[i].nombre);
@@ -190,11 +192,12 @@ vector<Producto> realizar_compra(string tipo,vector<Producto> carrito){
     return salida;
 }
 
-void factura_compra(vector<Producto> carrito,Usuario usuario){
+void factura_compra(vector<Producto> carrito,Usuario usuario,int mes){
     LimpiarTerminal();
     Mostrar("---------- Factura ---------");
     Mostrar("CI: "+to_string(usuario.ci));
     Mostrar("Usuario: "+string(usuario.nombre));
+    Mostrar("Mes de compra: "+obtener_mes(mes));
     Mostrar("Producto\tPrecio");
     Mostrar("-----------------------------");
     float total=0.00;
@@ -211,7 +214,7 @@ void factura_compra(vector<Producto> carrito,Usuario usuario){
     presionar_continuar();
 }
 
-void tipo_compra(char nombre[],Usuario usuario){
+void tipo_compra(char nombre[],Usuario usuario,int mes){
     int opcion=0;
     vector<Producto> carrito;
     while (true){
@@ -222,8 +225,8 @@ void tipo_compra(char nombre[],Usuario usuario){
                 Mostrar("No se realizao ninguna compra\n");
                 presionar_continuar();
             }else{
-                factura_compra(carrito,usuario);
-                adicionar_compras(nombre,carrito);
+                factura_compra(carrito,usuario,mes);
+                adicionar_compras(nombre,carrito,mes);
             }
             break;
         }
@@ -256,7 +259,7 @@ Usuario obtener_usuario(char nombre[]){
     return usuario;
 }
 
-void opciones_usuario(char nombre[]){
+void opciones_usuario(char nombre[],int mes){
     int opcion=0;
     Usuario usuario = obtener_usuario(nombre);
     while (true){
@@ -267,7 +270,7 @@ void opciones_usuario(char nombre[]){
         }
         switch (opcion){
             case 1: 
-                tipo_compra(nombre,usuario);
+                tipo_compra(nombre,usuario,mes);
                 break;
             case 2:
                 historial_compras(nombre);
@@ -279,7 +282,7 @@ void opciones_usuario(char nombre[]){
     
 }
 
-void cliente_nuevo(){
+void cliente_nuevo(int mes){
     Usuario nuevo;
     nuevo.ci=EntradaEntero("CI: ");
     EntradaCadena("Nombre: ",nuevo.nombre,50);
@@ -289,7 +292,7 @@ void cliente_nuevo(){
         ofstream archivo;
         archivo.open(archivo_usuarios,ios::app | ios::binary);
         archivo.write((char*)&nuevo, sizeof(Usuario));
-        opciones_usuario(nuevo.nombre);
+        opciones_usuario(nuevo.nombre,mes);
     }else{
         Mostrar("Error: Eres menor, llama a tu tutor");
         presionar_continuar();
@@ -308,7 +311,7 @@ bool verificar_existencia(char nombre[], char contrasena[]){
     archivo.close();
     return false;
 }
-void verificar_usuario(){
+void verificar_usuario(int mes){
     char nombre[20]; 
     char contrasena[20];
     int opcion=0;
@@ -318,7 +321,7 @@ void verificar_usuario(){
         EntradaCadena("Nombre de usuario: ",nombre,20);
         EntradaCadena("Contrasena: ",contrasena,20);
         if(verificar_existencia(nombre, contrasena)){
-            opciones_usuario(nombre);
+            opciones_usuario(nombre,mes);
             break;
         }else{
             LimpiarTerminal();
@@ -330,7 +333,7 @@ void verificar_usuario(){
     }
 }
 
-void pre_opciones_usuario() {
+void pre_opciones_usuario(int mes) {
     int opcion=0;
     while (true){
         LimpiarTerminal();
@@ -340,10 +343,10 @@ void pre_opciones_usuario() {
         }
         switch (opcion){
         case 1:
-            verificar_usuario();
+            verificar_usuario(mes);
             break;
         case 2:
-            cliente_nuevo();
+            cliente_nuevo(mes);
             break;
         default:
             break;
@@ -446,8 +449,57 @@ void aumentar_producto(){
     
 }
 
+bool existe_producto(int id,vector<Producto> productos){
+    for (int i=0;i<productos.size();i++){
+        if (productos[i].id==id){
+            return true;
+        }
+    }
+    return false;
+}
+
+int obtener_posicion_producto(vector<Producto> productos,int id){
+    for (int i=0;i<productos.size();i++){
+        if (productos[i].id==id){
+            return i;
+        }
+    }
+    return 0;
+}
+
+void reporte_mes(int mes){
+    vector<Producto> productos;
+    vector<int> cantidad;
+    Compra compra;
+    Producto producto;
+    ifstream archivo;
+    int posicion=0;
+    archivo.open(archivo_compras,ios::in | ios::binary);
+    while (archivo.read((char*)&compra, sizeof(Compra))) {
+        if (compra.mes_compra==mes){
+            for (int i=0;i<compra.numero_compras;i++){
+                if (existe_producto(compra.compras[i].id,productos)){
+                    posicion=obtener_posicion_producto(productos,compra.compras[i].id);
+                    cantidad[posicion]=cantidad[posicion]+1;
+                }else{
+                    productos.push_back(compra.compras[i]);
+                    cantidad.push_back(1);
+                }
+                
+            }
+        }
+    }
+    LimpiarTerminal();
+    Mostrar("Numero de ventas en el mes de "+obtener_mes(mes));
+    for (int i=0;i<productos.size();i++){
+        Mostrar("Producto: "+string(productos[i].nombre)+"\t"+"Cantidad: "+to_string(cantidad[i]));
+    }
+    presionar_continuar();
+}
+
 void opciones_administrador(){
     int opcion = 0;
+    int mes=0;
     while (true) {
         LimpiarTerminal();
         opcion = EntradaEntero(menu_administrador());
@@ -464,6 +516,21 @@ void opciones_administrador(){
             case 3:
                 LimpiarTerminal();
                 aumentar_producto();
+                break;
+            case 4:
+                LimpiarTerminal();
+                mes=0;
+                while (true) {
+                    LimpiarTerminal();
+                    mes=EntradaEntero(meses("En que mes estamos?:"));
+                    if (mes>=1 && mes<=12){
+                        break;
+                    }else{
+                        Mostrar("\nElija un mes valido");
+                        presionar_continuar();
+                    }
+                }
+                reporte_mes(mes);
                 break;
             default:
                 break;
@@ -510,6 +577,17 @@ void verificar_administrador(string mensaje){
 
 int main(){
     int opcion = 0;
+    int mes = 0;
+    while (true) {
+        LimpiarTerminal();
+        mes=EntradaEntero(meses("En que mes estamos?:"));
+        if (mes>=1 && mes<=12){
+            break;
+        }else{
+            Mostrar("\nElija un mes valido");
+            presionar_continuar();
+        }
+    }
     while (true) {
         LimpiarTerminal();
         opcion = EntradaEntero(menu_inicio());
@@ -517,7 +595,7 @@ int main(){
             break;
         switch (opcion) {
             case 1:
-                pre_opciones_usuario();
+                pre_opciones_usuario(mes);
                 break;
             case 2:
                 verificar_administrador("Entrada de administrador");
