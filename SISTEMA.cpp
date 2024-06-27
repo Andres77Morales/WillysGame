@@ -449,22 +449,13 @@ void aumentar_producto(){
     
 }
 
-bool existe_producto(int id,vector<Producto> productos){
-    for (int i=0;i<productos.size();i++){
-        if (productos[i].id==id){
-            return true;
-        }
-    }
-    return false;
-}
-
 int obtener_posicion_producto(vector<Producto> productos,int id){
     for (int i=0;i<productos.size();i++){
         if (productos[i].id==id){
             return i;
         }
     }
-    return 0;
+    return -1;
 }
 
 void reporte_mes(int mes){
@@ -478,7 +469,7 @@ void reporte_mes(int mes){
     while (archivo.read((char*)&compra, sizeof(Compra))) {
         if (compra.mes_compra==mes){
             for (int i=0;i<compra.numero_compras;i++){
-                if (existe_producto(compra.compras[i].id,productos)){
+                if (obtener_posicion_producto(productos,compra.compras[i].id)!=-1){
                     posicion=obtener_posicion_producto(productos,compra.compras[i].id);
                     cantidad[posicion]=cantidad[posicion]+1;
                 }else{
