@@ -4,6 +4,8 @@
 #include "MENUS.h"
 #include "FUNCIONES.h"
 #include <vector>
+#include <ctime>
+#include <climits>
 
 using namespace std;
 
@@ -32,7 +34,13 @@ struct Usuario {
     char nombre[20];
     char contrasena[20];
     int edad;
+    char numero_cuenta[19];
 };
+
+char random_entero(int a, int b) {
+    return '0'+(rand() % (b - a + 1) + a);
+}
+
 
 // Inicio - Opciones de usuario
 void historial_compras(char nombre[]){
@@ -195,19 +203,16 @@ vector<Producto> realizar_compra(string tipo,vector<Producto> carrito){
 void factura_compra(vector<Producto> carrito,Usuario usuario,int mes){
     LimpiarTerminal();
     Mostrar("---------- Factura ---------");
+    Mostrar("NUmero de cuenta: "+string(usuario.numero_cuenta));
     Mostrar("CI: "+to_string(usuario.ci));
     Mostrar("Usuario: "+string(usuario.nombre));
     Mostrar("Mes de compra: "+obtener_mes(mes));
     Mostrar("Producto\tPrecio");
     Mostrar("-----------------------------");
     float total=0.00;
-    // for (int i=0;i<carrito.size();i++){
-    //     Mostrar(string(carrito.at(i).nombre)+"\t"+to_string(carrito.at(i).precio));
-    //     total+=carrito.at(i).precio;
-    // }
-    for (Producto producto : carrito){
-        Mostrar(string(producto.nombre)+"\t"+to_string(producto.precio));
-        total+=producto.precio;
+    for (int i=0;i<carrito.size();i++){
+        Mostrar(string(carrito.at(i).nombre)+"\t"+to_string(carrito.at(i).precio));
+        total+=carrito.at(i).precio;
     }
     Mostrar("-----------------------------");
     Mostrar("Total\t\t"+to_string(total));
@@ -288,6 +293,9 @@ void cliente_nuevo(int mes){
     EntradaCadena("Nombre: ",nuevo.nombre,50);
     EntradaCadena("Contrasena: ",nuevo.contrasena,20);
     nuevo.edad=EntradaEntero("Edad: ");
+    for (int i=0;i<19;i++){
+        nuevo.numero_cuenta[i]=random_entero(1,9);
+    }
     if (nuevo.edad>=18){
         ofstream archivo;
         archivo.open(archivo_usuarios,ios::app | ios::binary);
@@ -567,6 +575,7 @@ void verificar_administrador(string mensaje){
 }
 
 int main(){
+    srand(time(NULL));
     int opcion = 0;
     int mes = 0;
     while (true) {
@@ -597,4 +606,6 @@ int main(){
     }
     return 0;
 }
+
+
 // Fin - Menu inicio
