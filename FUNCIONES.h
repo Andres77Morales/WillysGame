@@ -82,5 +82,5 @@ void Mostrar(string mensaje) {
 }
 
 void LimpiarTerminal() {
-    system("cls");
+    system("clear");
 }
